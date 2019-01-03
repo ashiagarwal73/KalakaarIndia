@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:id="@+id/clothes"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:id="@+id/category_image_view"
+          />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:background="@color/colorWhite"
+            android:fontFamily="@font/futuramediumbt"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:id="@+id/category_text_view"
+            android:padding="2dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

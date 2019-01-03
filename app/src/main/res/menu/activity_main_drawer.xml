@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/group_divider"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/clothes"
+            android:icon="@drawable/cloth"
+            android:title="Clothes" />
+        <item
+            android:id="@+id/food"
+            android:icon="@drawable/food_icon"
+            android:title="Food" />
+        <item
+            android:id="@+id/merchandise"
+            android:icon="@drawable/merchandise"
+            android:title="Merchandise" />
+        <item
+            android:id="@+id/paintings"
+            android:icon="@drawable/paintings"
+            android:title="Paintings" />
+    </group>
+
+
+        <group android:id="@+id/group_divider2"
+            android:checkableBehavior="single">
+            <item
+                android:id="@+id/refer_earn"
+                android:icon="@drawable/refer_and_earn"
+                android:title="Refer and Earn" />
+            <item
+                android:id="@+id/wishlist"
+                android:icon="@drawable/wishlist"
+                android:title="Wishlist" />
+        </group>
+
+
+</menu>

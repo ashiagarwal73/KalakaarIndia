@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "217943823506",
+    "firebase_url": "https://kalakaar-india.firebaseio.com",
+    "project_id": "kalakaar-india",
+    "storage_bucket": "kalakaar-india.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217943823506:android:2c21af0e66a9a13a",
+        "android_client_info": {
+          "package_name": "com.example.ashi.kalakaarindia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217943823506-397kdakhaa9cohi5tjlrld84k5vlbup5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ashi.kalakaarindia",
+            "certificate_hash": "4a2f19909cfdd24498b5aebfbaf3cc3b6533ed63"
+          }
+        },
+        {
+          "client_id": "217943823506-o9qblndgrpiiaa63k9ss39nq43gt0f91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0pOtgjWCNZwy7v5B9Uce_qFodijSnXIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217943823506-o9qblndgrpiiaa63k9ss39nq43gt0f91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
