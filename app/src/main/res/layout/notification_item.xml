@@ -21,7 +21,7 @@
         android:layout_margin="5dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/notification_title"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="15sp"
@@ -30,7 +30,7 @@
             android:textColor="@color/colorPrimary"
             android:text="Notification" />
         <TextView
-
+            android:id="@+id/notification_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"

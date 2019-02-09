@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ashi.kalakaarindia">
+    package="com.agarwal.ashi.kalakaarindia">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -15,6 +15,11 @@
         android:roundIcon="@drawable/ic_play_arrow_black_24dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name=".Activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
