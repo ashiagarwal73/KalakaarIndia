@@ -16,8 +16,10 @@ import java.util.List;
 public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<BottomRecyclerViewAdapter.MyViewHolder>
 {
     List<Product> trending_products;
-    public BottomRecyclerViewAdapter(List<Product> trending_products) {
+    BottomRecyclerViewListener bottomRecyclerViewListener;
+    public BottomRecyclerViewAdapter(List<Product> trending_products,BottomRecyclerViewListener bottomRecyclerViewListener) {
         this.trending_products=trending_products;
+        this.bottomRecyclerViewListener=bottomRecyclerViewListener;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -37,13 +39,23 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<BottomRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         Glide.with(myViewHolder.itemView.getContext()).load(trending_products.get(i).getProduct_image()).into(myViewHolder.imageview_treding_product);
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomRecyclerViewListener.onProductClicked(trending_products.get(i));
+            }
+        });
     }
 
 
     @Override
     public int getItemCount() {
         return trending_products.size();
+    }
+
+    public interface BottomRecyclerViewListener{
+        void onProductClicked(Product product);
     }
 }

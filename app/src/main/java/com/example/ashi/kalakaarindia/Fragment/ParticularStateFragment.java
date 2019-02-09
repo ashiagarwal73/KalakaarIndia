@@ -1,6 +1,7 @@
 package com.example.ashi.kalakaarindia.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -71,15 +73,31 @@ public class ParticularStateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view= inflater.inflate(R.layout.fragment_particular_state, container, false);
+
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item,states);
 
         initialiseViews(view);
+
         grid_recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         grid_recyclerview.setNestedScrollingEnabled(false);
 
         spinner.setPopupBackgroundDrawable(getResources().getDrawable(R.drawable.spinner_item_background));
         spinner.setAdapter(arrayAdapter);
+
         spinner.setDropDownVerticalOffset(100);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinner);
+
+            // Set popupWindow height to 500px
+            popupWindow.setHeight(800);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         spinner.setSelection(position);
         spinner.setSpinnerEventsListener(new CustomSpinner.OnSpinnerEventsListener() {
             @Override
@@ -96,13 +114,18 @@ public class ParticularStateFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
               if(position==0)
                 getActivity().getSupportFragmentManager().popBackStackImmediate();
               else {
-                  databaseReference.addValueEventListener(new ValueEventListener() {
+                  final ProgressDialog progressDialog=new ProgressDialog(getContext());
+                  progressDialog.setMessage("Loading...");
+                  progressDialog.show();
+                  databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                       @Override
                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                           state=dataSnapshot.child(spinner.getSelectedItem().toString()).getValue(State.class);
+                          progressDialog.dismiss();
                           if(state!=null){
                           Glide.with(getContext()).load(state.getTop_poster()).into(top_poster);
                           Glide.with(getContext()).load(state.getBottom_poster()).into(bottom_poster);
@@ -126,15 +149,6 @@ public class ParticularStateFragment extends Fragment {
 
             }
         });
-
-
-
-
-
-
-
-
-
         return view;
     }
 

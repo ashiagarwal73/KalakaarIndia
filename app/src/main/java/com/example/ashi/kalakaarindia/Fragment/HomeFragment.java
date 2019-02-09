@@ -1,6 +1,7 @@
 package com.example.ashi.kalakaarindia.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ashi.kalakaarindia.Adapter.CustomSpinner;
@@ -29,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -52,14 +55,15 @@ public class HomeFragment extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         initialiseViews(view);
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         recyclerViewTop.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         recyclerViewBottom.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
         spinner.setPopupBackgroundDrawable(getResources().getDrawable(R.drawable.spinner_item_background));
-
-        spinner.setDropDownVerticalOffset(100);
 
         spinner.setSpinnerEventsListener(new CustomSpinner.OnSpinnerEventsListener() {
             @Override
@@ -73,6 +77,20 @@ public class HomeFragment extends Fragment {
                 spinner.setBackground(getResources().getDrawable(R.drawable.spinner_design));
             }
         });
+        spinner.setDropDownVerticalOffset(100);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinner);
+
+            // Set popupWindow height to 500px
+            popupWindow.setHeight(800);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -92,30 +110,47 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                homePageModel=dataSnapshot.getValue(HomePageModel.class);
-                Glide.with(getContext()).load(homePageModel.getTop_poster()).into(top_poster);
-                Glide.with(getContext()).load(homePageModel.getBottom_poster()).into(bottom_poster);
-                states = new ArrayList<String>(homePageModel.getStates());
-                states.add(0,"Filter by States");
-                ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item,states);
-                spinner.setAdapter(arrayAdapter);
-                TopRecyclerViewAdapter topRecyclerViewAdapter=new TopRecyclerViewAdapter((TopRecyclerViewAdapter.Listener) getActivity(),homePageModel.getCategories());
-                recyclerViewTop.setAdapter(topRecyclerViewAdapter);
-                BottomRecyclerViewAdapter bottomRecyclerViewAdapter =new BottomRecyclerViewAdapter(homePageModel.getTrending_products());
-                recyclerViewBottom.setAdapter(bottomRecyclerViewAdapter);
+        if(homePageModel==null) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    homePageModel = dataSnapshot.getValue(HomePageModel.class);
+                    Glide.with(getContext()).load(homePageModel.getTop_poster()).into(top_poster);
+                    Glide.with(getContext()).load(homePageModel.getBottom_poster()).into(bottom_poster);
+                    states = new ArrayList<String>(homePageModel.getStates());
+                    states.add(0, "Filter by States");
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, states);
+                    spinner.setAdapter(arrayAdapter);
+                    TopRecyclerViewAdapter topRecyclerViewAdapter = new TopRecyclerViewAdapter((TopRecyclerViewAdapter.Listener) getActivity(), homePageModel.getCategories());
+                    recyclerViewTop.setAdapter(topRecyclerViewAdapter);
+                    BottomRecyclerViewAdapter bottomRecyclerViewAdapter = new BottomRecyclerViewAdapter(homePageModel.getTrending_products(), (BottomRecyclerViewAdapter.BottomRecyclerViewListener) getActivity());
+                    recyclerViewBottom.setAdapter(bottomRecyclerViewAdapter);
+                    progressDialog.dismiss();
 
+                }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.print(databaseError);
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), "No Internet !", Toast.LENGTH_LONG).show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.print(databaseError);
-
-            }
-        });
+                }
+            });
+        }
+        else {
+            Glide.with(getContext()).load(homePageModel.getTop_poster()).into(top_poster);
+            Glide.with(getContext()).load(homePageModel.getBottom_poster()).into(bottom_poster);
+            states = new ArrayList<String>(homePageModel.getStates());
+            states.add(0, "Filter by States");
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item, states);
+            spinner.setAdapter(arrayAdapter);
+            TopRecyclerViewAdapter topRecyclerViewAdapter = new TopRecyclerViewAdapter((TopRecyclerViewAdapter.Listener) getActivity(), homePageModel.getCategories());
+            recyclerViewTop.setAdapter(topRecyclerViewAdapter);
+            BottomRecyclerViewAdapter bottomRecyclerViewAdapter = new BottomRecyclerViewAdapter(homePageModel.getTrending_products(), (BottomRecyclerViewAdapter.BottomRecyclerViewListener) getActivity());
+            recyclerViewBottom.setAdapter(bottomRecyclerViewAdapter);
+            progressDialog.dismiss();
+        }
         return view;
     }
 

@@ -80,4 +80,5 @@ public class CustomSpinner extends AppCompatSpinner {
             performClosedEvent();
         }
     }
+
 }

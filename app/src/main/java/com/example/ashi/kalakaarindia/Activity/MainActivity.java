@@ -1,33 +1,67 @@
 package com.example.ashi.kalakaarindia.Activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.ashi.kalakaarindia.Adapter.BottomRecyclerViewAdapter;
+import com.example.ashi.kalakaarindia.Adapter.CategoryRecyclerViewAdapter;
 import com.example.ashi.kalakaarindia.Adapter.GridRecyclerViewAdapter;
+import com.example.ashi.kalakaarindia.Adapter.ProductRecyclerViewAdapter;
 import com.example.ashi.kalakaarindia.Adapter.TopRecyclerViewAdapter;
+import com.example.ashi.kalakaarindia.Fragment.CartFragment;
 import com.example.ashi.kalakaarindia.Fragment.CategoryFragment;
 import com.example.ashi.kalakaarindia.Fragment.HomeFragment;
+import com.example.ashi.kalakaarindia.Fragment.NotificationFragment;
+import com.example.ashi.kalakaarindia.Fragment.ProductDetailsFragment;
 import com.example.ashi.kalakaarindia.Fragment.ProductsCategoryFragment;
+import com.example.ashi.kalakaarindia.Fragment.SearchFragment;
+import com.example.ashi.kalakaarindia.Fragment.TeamFragment;
+import com.example.ashi.kalakaarindia.Model.Product;
+import com.example.ashi.kalakaarindia.Model.User;
 import com.example.ashi.kalakaarindia.R;
+import com.example.ashi.kalakaarindia.Utility.UserDetails;
+import com.example.ashi.kalakaarindia.Fragment.WishlistFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,TopRecyclerViewAdapter.Listener,GridRecyclerViewAdapter.Listener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        TopRecyclerViewAdapter.Listener,
+        GridRecyclerViewAdapter.Listener,
+        CategoryRecyclerViewAdapter.CategoryRecyclerViewListener,
+        ProductRecyclerViewAdapter.ProductRecyclerViewListener,
+        BottomRecyclerViewAdapter.BottomRecyclerViewListener,
+        CategoryFragment.CategoryFragmentListerner {
 
     private HomeFragment homeFragment;
+    TextView button,textView;
+    Menu navigationMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +71,7 @@ public class MainActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -46,8 +81,13 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment,homeFragment);
         fragmentTransaction.commit();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+         button=navigationView.getHeaderView(0).findViewById(R.id.login_button);
+         textView=navigationView.getHeaderView(0).findViewById(R.id.login_text);
+         navigationMenu=navigationView.getMenu();
+         setNavigationBarHeaderDetails();
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View view, float v) {
@@ -80,6 +120,58 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    void setNavigationBarHeaderDetails()
+    {
+
+        final FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        if(UserDetails.getUser()!=null&&UserDetails.getAppUser()!=null)
+        {
+            button.setVisibility(View.GONE);
+            textView.setText(String.format("Hey,%s", UserDetails.getAppUser().getName()));
+            MenuItem item=navigationMenu.findItem(R.id.signout);
+            item.setVisible(true);
+        }
+
+        else if(firebaseUser!=null)
+        {
+            DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user=dataSnapshot.getValue(User.class);
+                    button.setVisibility(View.GONE);
+                    textView.setText(String.format("Hey,%s", user.getName()));
+                    UserDetails.setUser(firebaseUser);
+                    UserDetails.setAppUser(user);
+                    MenuItem item=navigationMenu.findItem(R.id.signout);
+                    item.setVisible(true);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else {
+            button.setVisibility(View.VISIBLE);
+            textView.setText(String.format("Hey,%s", "there!"));
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -107,6 +199,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -116,29 +209,92 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.search) {
+//            getSupportFragmentManager().popBackStackImmediate();
+//            SearchFragment searchFragment=new SearchFragment();
+//            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment,searchFragment);
+//            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.commit();
+            Intent intent=new Intent(MainActivity.this,SearchActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.notification) {
+            getSupportFragmentManager().popBackStackImmediate();
+            NotificationFragment notificationFragment=new NotificationFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,notificationFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
             return true;
         }if (id == R.id.wishlist) {
+            getSupportFragmentManager().popBackStackImmediate();
+            WishlistFragment wishlistFragment=new WishlistFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,wishlistFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
             return true;
         }if (id == R.id.shopping_bag) {
+            getSupportFragmentManager().popBackStackImmediate();
+            CartFragment cartFragment=new CartFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment,cartFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getGroupId();
 
         if (id == R.id.group_divider) {
-            Intent intent=new Intent(MainActivity.this,ProductCategoryActivity.class);
-            intent.putExtra("category",item.getTitle());
-            startActivity(intent);
+            getSupportFragmentManager().popBackStackImmediate();
+            CategoryFragment categoryFragment =new CategoryFragment();
+            FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            Bundle bundle=new Bundle();
+            bundle.putString("category",item.getTitle().toString());
+            categoryFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment, categoryFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         } else if (id == R.id.group_divider2) {
+            int itemId=item.getItemId();
+            if(itemId==R.id.signout)
+            {
+                FirebaseAuth.getInstance().signOut();
+                UserDetails.setAppUser(null);
+                UserDetails.setUser(null);
+                setNavigationBarHeaderDetails();
+                item.setVisible(false);
+                homeFragment=new HomeFragment();
+                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment,homeFragment);
+                fragmentTransaction.commit();
+
+            }
+            if(itemId==R.id.wishlist)
+            {
+                getSupportFragmentManager().popBackStackImmediate();
+                WishlistFragment wishlistFragment=new WishlistFragment();
+                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment,wishlistFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+            if(itemId==R.id.team)
+            {
+                getSupportFragmentManager().popBackStackImmediate();
+                TeamFragment teamFragment=new TeamFragment();
+                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment,teamFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
 
         }
 
@@ -149,15 +305,53 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onTopRecyclerViewItemClicked(String category) {
-        Intent intent=new Intent(MainActivity.this,ProductCategoryActivity.class);
-        intent.putExtra("category",category);
-        startActivity(intent);
+        CategoryFragment categoryFragment =new CategoryFragment();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        Bundle bundle=new Bundle();
+        bundle.putString("category",category);
+        categoryFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment, categoryFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
-    public void onGridRecyclerViewItemClicked(String category) {
-        Intent intent=new Intent(MainActivity.this,ProductCategoryActivity.class);
-        intent.putExtra("category",category);
-        startActivity(intent);
+    public void onGridRecyclerViewItemClicked(String top_image, List<Product> productList) {
+        ProductsCategoryFragment productsCategoryFragment =new ProductsCategoryFragment();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        Bundle bundle=new Bundle();
+        bundle.putString("top_image",top_image);
+        bundle.putSerializable("products", (Serializable) productList);
+        productsCategoryFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment, productsCategoryFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+    @Override
+    public void onProductClicked(Product product) {
+        ProductDetailsFragment productDetailsFragment=new ProductDetailsFragment();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("product", product);
+        productDetailsFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment,productDetailsFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        System.out.print("ProductClicked");
+    }
+    @Override
+    public void onSeeAllClicked(List<Product> productList,String top_image) {
+
+        ProductsCategoryFragment productsCategoryFragment =new ProductsCategoryFragment();
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        Bundle bundle=new Bundle();
+        bundle.putString("top_image",top_image);
+        bundle.putSerializable("products", (Serializable) productList);
+        productsCategoryFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment, productsCategoryFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }

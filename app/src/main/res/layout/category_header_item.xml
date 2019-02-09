@@ -6,10 +6,9 @@
     android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:visibility="gone"
         android:id="@+id/top_poster"
-        android:src="@drawable/sale"
         android:scaleType="centerCrop"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:textColor="#156db9"
-            android:text="Category"
-            android:fontFamily="@font/futuramediumbt"
+            android:textColor="@color/nice_blue"
+            android:id="@+id/subcategory_name"
+            android:fontFamily="@font/futubd"
             android:textStyle="bold"
             android:layout_weight="1"
             />

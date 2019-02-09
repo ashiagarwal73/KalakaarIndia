@@ -4,5 +4,9 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/futuramediumbt" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/futubd" />
 
 </font-family>

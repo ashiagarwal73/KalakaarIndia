@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ashi.kalakaarindia.Model.Categories;
+import com.example.ashi.kalakaarindia.Model.Product;
 import com.example.ashi.kalakaarindia.R;
 
 import java.util.List;
@@ -36,9 +37,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onGridRecyclerViewItemClicked(categories.get(i).getName());
-
-
+                listener.onGridRecyclerViewItemClicked(categories.get(i).getImage(),categories.get(i).getProducts());
             }
         });
     }
@@ -59,6 +58,6 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     }
 
     public interface Listener{
-        public void onGridRecyclerViewItemClicked(String category);
+        public void onGridRecyclerViewItemClicked(String top_image, List<Product> products);
     }
 }

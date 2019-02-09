@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.TeamFragment"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="45sp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/futubd"
+        android:textColor="@color/nice_blue"
+        android:text="OUR TEAM"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+
+        android:background="@color/nice_blue">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/shailendra"
+                android:scaleType="centerCrop"
+                />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="Shailendra Mishra"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="CEO &amp; CO-FOUNDER"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/nice_blue"
+        android:layout_marginStart="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/devendra"
+                android:scaleType="centerCrop"
+                />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="Devendra Mishra"
+        android:layout_gravity="center"
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="CFO"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/nice_blue"
+        android:layout_marginStart="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/sumit"
+                android:scaleType="centerCrop"
+                />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="Sumit Kumar"
+        android:layout_gravity="center"
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="INVESTMENT ADVISOR"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/nice_blue"
+        android:layout_marginStart="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/pranay"
+                android:scaleType="centerCrop"
+                />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="Pranay Agarwal"
+        android:layout_gravity="center"
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="UI/UX DESIGNER"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/nice_blue"
+        android:layout_marginStart="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:alpha="0.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/><android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardCornerRadius="50dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ashi"
+                android:scaleType="centerCrop"
+                />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/ic_fiber_manual_record_blue_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="Ashi Agarwal"
+        android:layout_gravity="center"
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/futuramediumbt"
+        android:textColor="@color/nice_blue"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="4sp"
+        android:text="APPLICATION DEVELOPER"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/nice_blue"
+        android:layout_marginStart="40dp" />
+</LinearLayout>
+</ScrollView>

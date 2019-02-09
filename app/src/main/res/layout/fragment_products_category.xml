@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Fragment.ProductsCategoryFragment"
-    tools:showIn="@layout/app_bar_main">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fdfafa"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <ImageView
+    android:orientation="vertical"
+    tools:context=".Fragment.ProductsCategoryFragment">
+    <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/sale"
-            android:scaleType="centerCrop"
-            app:layout_scrollFlags="scroll|snap"/>
-    </android.support.design.widget.AppBarLayout>
+            android:id="@+id/top_image"
+            android:scaleType="centerCrop" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/product_recycler_view"
-
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:id="@+id/product_recycler_view">
     </android.support.v7.widget.RecyclerView>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

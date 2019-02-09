@@ -34,6 +34,16 @@
                 android:id="@+id/wishlist"
                 android:icon="@drawable/wishlist"
                 android:title="Wishlist" />
+            <item
+                android:id="@+id/team"
+                android:icon="@drawable/ic_people_black_24dp"
+
+                android:title="Our Team" />
+            <item
+                android:id="@+id/signout"
+                android:icon="@drawable/log_out"
+                android:visible="false"
+                android:title="Sign Out" />
         </group>
 
 
