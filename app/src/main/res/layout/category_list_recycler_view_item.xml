@@ -26,8 +26,10 @@
 
             <TextView
                 android:layout_width="75dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textAllCaps="true"
+                android:textStyle="bold"
                android:id="@+id/product_name"
                 />
         <LinearLayout

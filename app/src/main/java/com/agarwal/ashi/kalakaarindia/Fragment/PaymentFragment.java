@@ -1,20 +1,33 @@
 package com.agarwal.ashi.kalakaarindia.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.agarwal.ashi.kalakaarindia.Activity.CompleteOrderActivity;
+import com.agarwal.ashi.kalakaarindia.Model.Order;
 import com.agarwal.ashi.kalakaarindia.Model.Product;
+import com.agarwal.ashi.kalakaarindia.Model.User;
 import com.agarwal.ashi.kalakaarindia.R;
 import com.agarwal.ashi.kalakaarindia.Utility.UserDetails;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -25,7 +38,7 @@ public class PaymentFragment extends Fragment {
     Button button_add_address,address_button_cancel,address_button_save;
     TextInputEditText address_pincode,address_locality,address_city,address_state;
     private String address="";
-
+    List<Product> products=null;
     public PaymentFragment() {
         // Required empty public constructor
     }
@@ -38,7 +51,7 @@ public class PaymentFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_payment, container, false);
         initialiseViews(view);
         addOnClickListeners();
-        List<Product> products =UserDetails.getAppUser().getCart_product();
+        products=UserDetails.getAppUser().getCart_product();
         int sum=0;
         for(int i=0;i<products.size();i++)
         {
@@ -115,7 +128,18 @@ public class PaymentFragment extends Fragment {
                 if(address.equals("")) {
 
                 }else {
-
+                    Order order=new Order();
+                    order.setProducts(products);
+                    order.setAmount(price.getText().toString()+"");
+                    order.setAddress(address);
+                    User user=UserDetails.getAppUser();
+                    user.setCart_product(null);
+                    order.setUser(user);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("order", order);
+                    Intent intent=new Intent(getActivity(), CompleteOrderActivity.class);
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
                 }
             }
         });

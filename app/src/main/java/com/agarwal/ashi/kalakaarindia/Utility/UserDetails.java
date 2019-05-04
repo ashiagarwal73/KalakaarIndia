@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserDetails {
+
     private static FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
     private static User appUser;
 

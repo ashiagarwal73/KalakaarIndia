@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.agarwal.ashi.kalakaarindia.Model.Categories;
+import com.agarwal.ashi.kalakaarindia.Model.Product;
+import com.agarwal.ashi.kalakaarindia.Model.StatePageModel;
 import com.bumptech.glide.Glide;
 import com.agarwal.ashi.kalakaarindia.Adapter.CustomSpinner;
 import com.agarwal.ashi.kalakaarindia.Adapter.GridRecyclerViewAdapter;
@@ -33,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ParticularStateFragment extends Fragment {
@@ -45,6 +49,7 @@ public class ParticularStateFragment extends Fragment {
     TextView hello_msg;
     private int position;
     ArrayList<String> states;
+
     public ParticularStateFragment() {
         // Required empty public constructor
     }

@@ -60,7 +60,7 @@ public class Product implements Serializable {
     }
 
     public String getProduct_image_2() {
-        return product_image_2;
+        return product_image;
     }
 
     public void setProduct_image_2(String product_image_2) {
@@ -68,7 +68,7 @@ public class Product implements Serializable {
     }
 
     public String getProduct_image_3() {
-        return product_image_3;
+        return product_image;
     }
 
     public void setProduct_image_3(String product_image_3) {

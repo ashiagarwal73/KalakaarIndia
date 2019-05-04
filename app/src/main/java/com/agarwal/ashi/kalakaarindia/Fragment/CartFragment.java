@@ -57,7 +57,6 @@ public class CartFragment extends Fragment implements CartAdapter.Listener {
                 PaymentFragment paymentFragment=new PaymentFragment();
                 FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment,paymentFragment);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

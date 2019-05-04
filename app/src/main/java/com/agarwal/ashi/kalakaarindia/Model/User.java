@@ -1,9 +1,10 @@
 package com.agarwal.ashi.kalakaarindia.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     String name;
     String phone_number;
     String password;
@@ -11,15 +12,18 @@ public class User {
     String email;
     List<Product> fav_product;
     List<Product> cart_product;
-    List<Order> orders;
 
     public List<Order> getOrders() {
+        if(orders==null)
+            orders=new ArrayList<>();
         return orders;
     }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    List<Order> orders;
 
     public List<Product> getFav_product() {
         if(fav_product==null)

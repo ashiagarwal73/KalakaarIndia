@@ -17,20 +17,13 @@
         android:orientation="horizontal"
         android:textColor="@color/colorWhite"
         >
-    <android.support.v7.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="left"
-        app:cardCornerRadius="50dp">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="10dp"
+            android:layout_gravity="left"
             android:contentDescription="@string/nav_header_desc"
-            android:src="@drawable/ic_person_black_24dp" />
-
-    </android.support.v7.widget.CardView>
+            android:src="@mipmap/ic_launcher" />
         <TextView
             android:layout_width="100dp"
             android:layout_height="30dp"

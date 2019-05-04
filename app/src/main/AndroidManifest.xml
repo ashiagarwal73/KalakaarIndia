@@ -10,19 +10,22 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@drawable/ic_play_arrow_black_24dp"
+        android:icon="@mipmap/ic_arrow"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_play_arrow_black_24dp"
+        android:roundIcon="@mipmap/ic_arrow"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.CompleteOrderActivity"></activity>
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name=".Activity.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
+        <activity
+            android:name=".Activity.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -36,7 +39,11 @@
         <activity
             android:name=".Activity.GetUserDetailsActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.LoginActivity" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_03b4rpj4ln8IYw" />
     </application>
 
 </manifest>
